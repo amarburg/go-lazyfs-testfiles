@@ -1,14 +1,15 @@
-package lazyfs_testfiles
+package main
 
 import "os"
 import "os/signal"
 import "syscall"
 import "fmt"
 
-import "testing"
+import "github.com/amarburg/go-lazyfs-testfiles/http_server"
 
-func TestServer( t *testing.T ) {
-  srv := HttpServer(4567, ".")
+
+func main() {
+  srv := lazyfs_testfiles.HttpServer(4567)
 
   stop := make(chan os.Signal)
 	signal.Notify(stop, syscall.SIGINT)
