@@ -25,7 +25,6 @@ type SLServer struct {
   wg  sync.WaitGroup
   sl  *stoppableListener.StoppableListener
   server *http.Server
-  Url string
 }
 
 var once bool = true
@@ -107,8 +106,7 @@ func HttpServer( port int )  (*SLServer) {
     //var wg sync.WaitGroup
     srv := SLServer{ server: &http.Server{},
                     sl: sl,
-                    wg: sync.WaitGroup{},
-                    Url: url }
+                    wg: sync.WaitGroup{} }
     srv.wg.Add(1)
     go func() {
       defer srv.wg.Done()
