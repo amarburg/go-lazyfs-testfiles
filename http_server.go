@@ -19,7 +19,11 @@ type SLServer struct {
   Url string
 }
 
+var once bool = true
+
 func HttpServer( port int, root string )  (*SLServer) {
+
+  if once {
   http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
     localPath := root + r.URL.Path
     //fmt.Println(r.Header)
@@ -64,6 +68,8 @@ func HttpServer( port int, root string )  (*SLServer) {
     }
     http.Error(w, "File not found", 404 )
    } )
+   once = false
+ }
 
 
     srvIp := fmt.Sprintf("127.0.0.1:%d", port )

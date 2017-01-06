@@ -13,8 +13,6 @@ func TestServer( t *testing.T ) {
   stop := make(chan os.Signal)
 	signal.Notify(stop, syscall.SIGINT)
 
-
-
 	fmt.Printf("Serving HTTP\n")
 	select {
 	case signal := <-stop:
