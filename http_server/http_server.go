@@ -1,4 +1,4 @@
-package lazyfs_testfiles
+package lazyfs_testfiles_http_server
 
 import "net/http"
 //import "net/url"
@@ -33,7 +33,6 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
   if r.URL.Path == "/" { r.URL.Path = "/index.html"}
 
   localPath := root + r.URL.Path
-  //fmt.Println(r.Header)
 
   if info,err := os.Stat( localPath ); err == nil && (info.Mode() & os.ModeType)==0 {
     file,err := os.Open( localPath )
@@ -54,48 +53,45 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 
         sz := info.Size()
         if start > end { start = end }
-          w.Header().Set("Trailer", "Content-Range")
-
-          if start <= end {
-            rdr := io.NewSectionReader( file, int64(start), int64(end-start) )
-            io.Copy( w, rdr )
-          }
 
         w.Header().Set("Content-Range",fmt.Sprintf( "%d-%d/%d", start, end, sz ) )
 
+        if start <= end {
+          rdr := io.NewSectionReader( file, int64(start), int64(end-start) )
+          io.Copy( w, rdr )
+        }
 
       } else {
         io.Copy( w, file)
       }
       file.Close()
+
+      // dt := time.Now().Sub( startTime )
+      // fmt.Printf("Hander out %d\n", dt.Nanoseconds() )
+
       return
     }
-  } //else {
-  //  fmt.Println( info, err )
-  //}
+  }
 
   http.Error(w, "File not found", 404 )
  }
 
 func HttpServer( port int )  (*SLServer) {
 
-
-  //fmt.Println("Repo root is", root )
-
   if once {
-  http.HandleFunc("/", HandlerFunc )
-   once = false
- }
+    http.HandleFunc("/", HandlerFunc )
+    once = false
+  }
 
 
     srvIp := fmt.Sprintf("127.0.0.1:%d", port )
-    url   := fmt.Sprintf("http://127.0.0.1:%d/", port )
+    //url   := fmt.Sprintf("http://%s/", srvIp )
     originalListener, err := net.Listen("tcp", srvIp)
     if err != nil {
       panic(err)
     }
 
-    fmt.Printf("Starting web server at %s\n", url)
+    //fmt.Printf("Starting web server at %s\n", url)
 
     sl, err := stoppableListener.New(originalListener)
     if err != nil {
@@ -116,16 +112,11 @@ func HttpServer( port int )  (*SLServer) {
     return &srv
 }
 
-    //
-    // srvUrl,_ := url.Parse( fmt.Sprintf("http://127.0.0.1:%d/", port ))
-    //
-    // log.Fatal(http.ListenAndServe(srvUrl.String(), nil))
-    //}
 
 func (srv *SLServer) Stop() {
-  fmt.Printf("Stopping web server...")
+  //fmt.Printf("Stopping web server...")
   srv.sl.Stop()
   srv.wg.Wait()
-  fmt.Printf("done\n")
+  //fmt.Printf("done\n")
 
 }
