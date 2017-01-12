@@ -25,6 +25,7 @@ type SLServer struct {
   wg  sync.WaitGroup
   sl  *stoppableListener.StoppableListener
   server *http.Server
+  Url string
 }
 
 var once bool = true
@@ -55,6 +56,7 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
         if start > end { start = end }
 
         w.Header().Set("Content-Range",fmt.Sprintf( "%d-%d/%d", start, end, sz ) )
+        //w.Header().Set("Content-Length",fmt.Sprintf( "%d", end-start ) )
 
         if start <= end {
           rdr := io.NewSectionReader( file, int64(start), int64(end-start) )
@@ -76,7 +78,19 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
   http.Error(w, "File not found", 404 )
  }
 
-func HttpServer( port int )  (*SLServer) {
+type HttpConfig struct {
+  host  string
+  port  int
+}
+
+func HttpServer( configFuncs ...func( *HttpConfig ) )  (*SLServer) {
+
+  config := HttpConfig{
+    host: "127.0.0.1",
+    port: 4567,
+  }
+
+  for _,f := range configFuncs { f( &config ) }
 
   if once {
     http.HandleFunc("/", HandlerFunc )
@@ -84,8 +98,7 @@ func HttpServer( port int )  (*SLServer) {
   }
 
 
-    srvIp := fmt.Sprintf("127.0.0.1:%d", port )
-    //url   := fmt.Sprintf("http://%s/", srvIp )
+    srvIp := fmt.Sprintf("%s:%d", config.host, config.port )
     originalListener, err := net.Listen("tcp", srvIp)
     if err != nil {
       panic(err)
@@ -98,11 +111,12 @@ func HttpServer( port int )  (*SLServer) {
       panic(err)
     }
 
-
     //var wg sync.WaitGroup
     srv := SLServer{ server: &http.Server{},
                     sl: sl,
-                    wg: sync.WaitGroup{} }
+                    wg: sync.WaitGroup{},
+                    Url: fmt.Sprintf("http://%s/", srvIp ) }
+
     srv.wg.Add(1)
     go func() {
       defer srv.wg.Done()
