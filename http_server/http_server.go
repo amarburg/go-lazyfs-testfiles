@@ -7,18 +7,11 @@ import "io"
 import "fmt"
 import "sync"
 import "net"
-import "runtime"
 //import "log"
-import "path/filepath"
 
 import "github.com/hydrogen18/stoppableListener"
 
-
-func RepoRoot() string {
-  _, file, _, _ := runtime.Caller(0)
-  return filepath.Clean(file + "/../..")
-}
-var root string = RepoRoot()
+import "github.com/amarburg/go-lazyfs-testfiles"
 
 
 type SLServer struct {
@@ -33,7 +26,7 @@ var once bool = true
 func HandlerFunc(w http.ResponseWriter, r *http.Request) {
   if r.URL.Path == "/" { r.URL.Path = "/index.html"}
 
-  localPath := root + r.URL.Path
+  localPath := lazyfs_testfiles.RepoRoot() + r.URL.Path
 
   if info,err := os.Stat( localPath ); err == nil && (info.Mode() & os.ModeType)==0 {
     file,err := os.Open( localPath )
