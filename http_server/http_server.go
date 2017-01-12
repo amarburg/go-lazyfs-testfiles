@@ -1,7 +1,7 @@
 package lazyfs_testfiles_http_server
 
 import "net/http"
-//import "net/url"
+import "net/url"
 import "os"
 import "io"
 import "fmt"
@@ -13,6 +13,8 @@ import "github.com/hydrogen18/stoppableListener"
 
 import "github.com/amarburg/go-lazyfs-testfiles"
 
+
+// TODO:  Use http.ServeFile, http.ServeContent
 
 type SLServer struct {
   wg  sync.WaitGroup
@@ -125,5 +127,9 @@ func (srv *SLServer) Stop() {
   srv.sl.Stop()
   srv.wg.Wait()
   //fmt.Printf("done\n")
+}
 
+func (srv *SLServer) URL() (url.URL) {
+  uri,_ := url.Parse( srv.Url )
+  return *uri
 }
