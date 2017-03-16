@@ -1,6 +1,7 @@
 package lazyfs_testfiles
 
 import "runtime"
+import "path"
 import "path/filepath"
 
 
@@ -14,3 +15,4 @@ var TenMegFileLength int = 10485760
 var AlphabetFile string     = "alphabet.fs"
 
 var TestMovFile = "CamHD_Vent_Short.mov"
+var TestMovPath = path.Join( RepoRoot(), TestMovFile )

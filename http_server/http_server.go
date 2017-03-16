@@ -99,7 +99,7 @@ func HttpServer( configFuncs ...func( *HttpConfig ) )  (*SLServer) {
       panic(err)
     }
 
-    //fmt.Printf("Starting web server at %s\n", url)
+    fmt.Printf("Starting web server at %s\n", srvIp)
 
     sl, err := stoppableListener.New(originalListener)
     if err != nil {
