@@ -42,6 +42,9 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
         var start, end int
         n,_ := fmt.Sscanf( contentRange[0], "bytes=%d-%d", &start, &end )
 
+        // Apparently end is inclusive...
+        end += 1
+
         if n != 2 {
           http.Error(w, "Parse Error", 400 )
           return
