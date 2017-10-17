@@ -16,3 +16,6 @@ var AlphabetFile string     = "alphabet.fs"
 
 var TestMovFile = "CamHD_Vent_Short.mov"
 var TestMovPath = path.Join( RepoRoot(), TestMovFile )
+
+var TestMovieWidth = 1920
+var TestMovieHeight = 1080
