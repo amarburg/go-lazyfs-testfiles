@@ -12,6 +12,10 @@ func RepoRoot() string {
 var EmptyMultiMovJson = path.Join( RepoRoot(), "empty_multimov.json" )
 var ZeroLengthMultiMovJson = path.Join( RepoRoot(), "zero_length_multimov.json" )
 
+var SingleMovMultiMovJson = path.Join( RepoRoot(), "single_mov.json" )
+var FourMovMultiMovJson = path.Join( RepoRoot(), "four_mov.json" )
+
+
 // var TenMegBinaryFile string = "ten_meg_random.dd"
 // var TenMegFileLength int = 10485760
 // var AlphabetFile string     = "alphabet.fs"
