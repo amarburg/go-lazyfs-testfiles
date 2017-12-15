@@ -14,14 +14,3 @@ var ZeroLengthMultiMovJson = path.Join( RepoRoot(), "zero_length_multimov.json" 
 
 var SingleMovMultiMovJson = path.Join( RepoRoot(), "single_mov.json" )
 var FourMovMultiMovJson = path.Join( RepoRoot(), "four_mov.json" )
-
-
-// var TenMegBinaryFile string = "ten_meg_random.dd"
-// var TenMegFileLength int = 10485760
-// var AlphabetFile string     = "alphabet.fs"
-//
-// var TestMovFile = "CamHD_Vent_Short.mov"
-// var TestMovPath = path.Join( RepoRoot(), TestMovFile )
-//
-// var TestMovieWidth = 1920
-// var TestMovieHeight = 1080

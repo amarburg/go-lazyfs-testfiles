@@ -1,0 +1,26 @@
+{
+  "Source": "../multimov/four_mov.json",
+  "Chunks": [
+    {
+      "Name": "first",
+      "Frames": [ 1, 5, 10 ]
+    },
+    {
+      "Name": "second",
+      "Start": 20
+    },
+    {
+      "Name": "fourth",
+      "Start": 50
+    },
+    {
+      "Name": "fifth",
+      "Start": 60,
+      "End": 65
+    },
+    {
+      "Name": "third",
+      "Frames": [ 30, 40 ]
+    }
+  ]
+}
