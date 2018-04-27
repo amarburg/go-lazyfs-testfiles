@@ -17,8 +17,8 @@ var AlphabetFile string     = "alphabet.fs"
 var TestMovFile = "CamHD_Vent_Short.mov"
 var TestMovPath = path.Join( RepoRoot(), TestMovFile )
 // Known apriori
-var TestMovNumFrames = 31        // frames
-var TestMovDuration = 1.034367   // seconds
+var TestMovNumFrames = 42        // frames
+var TestMovDuration = 1.4014001   // seconds
 
 var TestMovieWidth = 1920
 var TestMovieHeight = 1080
