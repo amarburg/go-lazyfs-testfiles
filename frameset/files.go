@@ -9,7 +9,7 @@ func RepoRoot() string {
   return filepath.Clean(file + "/../")
 }
 
-var GoodMultiMovJson = path.Join( RepoRoot(), "good_frameset.json" )
+var GoodFrameSetJson = path.Join( RepoRoot(), "good_frameset.json" )
 
-const GoodMultiMovJsonChunks = 5
-const GoodMultiMovJsonFrames = 31
+const GoodFrameSetJsonChunks = 5
+const GoodFrameSetJsonFrames = 31
