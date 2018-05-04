@@ -4,7 +4,7 @@
     "1434110343": {
       "ShortName": "CamHD_Vent_Short.mov",
       "Relapath": "../CamHD_Vent_Short.mov",
-      "NumFrames": 31,
+      "NumFrames": 42,
       "StartTime": "0001-01-01T00:00:00Z",
       "Duration": 1034366656000000000
     }
@@ -15,15 +15,15 @@
       "Hash": 1434110343
     },
     {
-      "FrameOffset": 31,
+      "FrameOffset": 42,
       "Hash": 1434110343
     },
     {
-      "FrameOffset": 62,
+      "FrameOffset": 84,
       "Hash": 1434110343
     },
     {
-      "FrameOffset": 93,
+      "FrameOffset": 126,
       "Hash": 1434110343
     }
   ]
